@@ -8,6 +8,7 @@ namespace GittestBas
 {
     class Base
     {
+
         // uh uh uh
     }
 }
