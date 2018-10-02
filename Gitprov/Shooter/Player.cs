@@ -44,32 +44,25 @@ namespace Shooter
 
         private void Movement()
         {
-            if (keybord.IsKeyDown(Keys.W))
+            if (keybord.IsKeyDown(Keys.W) && position.Y > 0)
             {
                 velocity.Y -= 1;
             }
-            if (keybord.IsKeyDown(Keys.S))
+            if (keybord.IsKeyDown(Keys.S) && position.Y < 600)
             {
                 velocity.Y += 1;
             }
-            if (keybord.IsKeyDown(Keys.D))
+            if (keybord.IsKeyDown(Keys.D) && position.X < 800)
             {
                 velocity.X += 1;
             }
-            if (keybord.IsKeyDown(Keys.A))
+            if (keybord.IsKeyDown(Keys.A) && position.X > 0)
             {
                 velocity.X -= 1;
             }
             if(velocity != Vector2.Zero)
                 velocity.Normalize();
             position += velocity *speed;
-        }
-        private void Delet()
-        {
-            if (Health <= 0)
-            {
-                Remove = true;
-            }
         }
 
         private void Shoot()

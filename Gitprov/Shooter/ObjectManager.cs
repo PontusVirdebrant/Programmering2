@@ -47,9 +47,9 @@ namespace Shooter
 
         public static T FindObject<T>() where T: BaseObject
         {
-
             return objects.First(x => x is T) as T;
         }
+   
         private static void Collision()
         {
             for (int i = 0; i < objects.Count; i++)
