@@ -11,6 +11,7 @@ namespace Shooter
     class EnemyFollowPlayer:BaseEnemy
     {
         Player target;
+        int Health = 5;
         public EnemyFollowPlayer(Vector2 pos, Player player):base(pos)
         {
             target = player;

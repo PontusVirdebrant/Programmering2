@@ -15,11 +15,6 @@ namespace Shooter
         protected Color color = Color.White;
         protected Vector2 collosionBox = new Vector2(10, 10);
         
-        public int Health
-        {
-            get;
-            set;
-        }
 
         public Vector2 Position
         {

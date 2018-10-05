@@ -16,7 +16,7 @@ namespace Shooter
         KeyboardState keybord;
         float shootTime = 50;
         float timer = 60;
-        public new int Health = 5;
+        public int Health = 5;
 
         public Player()
         {
