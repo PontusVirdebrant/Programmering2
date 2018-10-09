@@ -11,7 +11,7 @@ namespace Shooter
     class EnemyFollowPlayer:BaseEnemy
     {
         Player target;
-        int Health = 5;
+        private int Score;
         public EnemyFollowPlayer(Vector2 pos, Player player):base(pos)
         {
             target = player;
@@ -31,12 +31,12 @@ namespace Shooter
             if(col is BaseBullet)
             {
                 Remove = true;
+                Score += 100;
+                Debug.WriteLine(Score);
             }
             if (col is Player)
             {
                 Remove = true;
-                Health--;
-                Debug.WriteLine("Spelaren har " + Health + " HP");
             }
         }
     }

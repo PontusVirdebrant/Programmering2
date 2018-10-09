@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,9 @@ namespace Shooter
         float speed = 5f;
         Vector2 velocity = Vector2.Zero;
         KeyboardState keybord;
-        float shootTime = 50;
+        float shootTime = 20;
         float timer = 60;
-        public int Health = 5;
+        int Health = 5;
 
         public Player()
         {
@@ -36,6 +37,7 @@ namespace Shooter
             }
             timer++;
         }
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -63,6 +65,18 @@ namespace Shooter
             if(velocity != Vector2.Zero)
                 velocity.Normalize();
             position += velocity *speed;
+        }
+        public override void OnCollision(BaseObject col)
+        {
+            if (col is BaseEnemy)
+            {
+                Health--;
+                if (Health <= 0)
+                {
+                    Remove = true;
+                }
+                Debug.WriteLine("Spelaren har " + Health + " HP kvar");
+            }
         }
 
         private void Shoot()

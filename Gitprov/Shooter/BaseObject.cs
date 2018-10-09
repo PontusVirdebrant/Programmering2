@@ -14,7 +14,6 @@ namespace Shooter
         protected Vector2 position = new Vector2();
         protected Color color = Color.White;
         protected Vector2 collosionBox = new Vector2(10, 10);
-        
 
         public Vector2 Position
         {
