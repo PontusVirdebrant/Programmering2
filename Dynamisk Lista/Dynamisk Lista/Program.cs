@@ -18,6 +18,15 @@ namespace Dynamisk_Lista
             {
                 T data;
                 Node next;
+                public Node(T d)
+                {
+                    data = d;
+                    next = null;
+                }
+            }
+            class LänkadLista
+            {
+                Node head;
             }
             protected T[] listning;
             protected int swagger;
