@@ -14,10 +14,10 @@ namespace Dynamisk_Lista
 
         public class Fukt<T>
         {
-            class Node
+            public class Node
             {
                 T data;
-                Node next;
+                public Node next;
                 public Node(T d)
                 {
                     data = d;
@@ -26,7 +26,7 @@ namespace Dynamisk_Lista
             }
             class LänkadLista
             {
-                Node head;
+                public static Node head;
             }
             protected T[] listning;
             protected int swagger;
@@ -83,6 +83,35 @@ namespace Dynamisk_Lista
                 if (längd - antal > swagger) Förminska();
 
                 return temp;
+            }
+
+            Node GetLastNode()
+            {
+                Node temp = LänkadLista.head;
+                while (temp.next != null)
+                {
+                    temp = temp.next;
+                }
+                return temp;
+            }
+
+            void AddFirst(T data)
+            {
+                Node nyNod = new Node(data);
+                nyNod.next = LänkadLista.head;
+                LänkadLista.head = nyNod.next;
+            }
+
+            void AddLast(T data)
+            {
+                Node nyNod = new Node(data);
+                if (LänkadLista.head == null)
+                {
+                    LänkadLista.head = nyNod;
+                    return;
+                }
+                Node lastNode = GetLastNode();
+                lastNode.next = nyNod;
             }
 
         }
