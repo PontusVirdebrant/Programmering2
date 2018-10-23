@@ -28,6 +28,35 @@ namespace Dynamisk_Lista
             {
                 public static Node head;
             }
+            Node GetLastNode()
+            {
+                Node temp = LänkadLista.head;
+                while (temp.next != null)
+                {
+                    temp = temp.next;
+                }
+                return temp;
+            }
+
+            void AddFirst(T data)
+            {
+                Node nyNod = new Node(data);
+                nyNod.next = LänkadLista.head;
+                LänkadLista.head = nyNod.next;
+            }
+
+            void AddLast(T data)
+            {
+                Node nyNod = new Node(data);
+                if (LänkadLista.head == null)
+                {
+                    LänkadLista.head = nyNod;
+                    return;
+                }
+                Node lastNode = GetLastNode();
+                lastNode.next = nyNod;
+            }
+
             protected T[] listning;
             protected int swagger;
             protected int längd;
@@ -84,36 +113,6 @@ namespace Dynamisk_Lista
 
                 return temp;
             }
-
-            Node GetLastNode()
-            {
-                Node temp = LänkadLista.head;
-                while (temp.next != null)
-                {
-                    temp = temp.next;
-                }
-                return temp;
-            }
-
-            void AddFirst(T data)
-            {
-                Node nyNod = new Node(data);
-                nyNod.next = LänkadLista.head;
-                LänkadLista.head = nyNod.next;
-            }
-
-            void AddLast(T data)
-            {
-                Node nyNod = new Node(data);
-                if (LänkadLista.head == null)
-                {
-                    LänkadLista.head = nyNod;
-                    return;
-                }
-                Node lastNode = GetLastNode();
-                lastNode.next = nyNod;
-            }
-
         }
     }
 }
