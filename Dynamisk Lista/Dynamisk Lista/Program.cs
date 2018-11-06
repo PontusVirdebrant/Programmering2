@@ -11,26 +11,22 @@ namespace Dynamisk_Lista
         static void Main(string[] args)
         {
         }
-
-        public class Fukt<T>
-        {
             public class Node
             {
-                T data;
+                int data;
                 public Node next;
-                public Node(T d)
+                public Node(int d)
                 {
                     data = d;
                     next = null;
                 }
             }
-            class LänkadLista
+            public class LänkadLista<T>
             {
-                public static Node head;
-            }
+            Node head;
             Node GetLastNode()
             {
-                Node temp = LänkadLista.head;
+                Node temp = head;
                 while (temp.next != null)
                 {
                     temp = temp.next;
@@ -38,25 +34,47 @@ namespace Dynamisk_Lista
                 return temp;
             }
 
-            void AddFirst(T data)
+            void AddFirst(int data)
             {
                 Node nyNod = new Node(data);
-                nyNod.next = LänkadLista.head;
-                LänkadLista.head = nyNod.next;
+                nyNod.next = head;
+                head = nyNod.next;
             }
 
-            void AddLast(T data)
+            void AddLast(int data)
             {
                 Node nyNod = new Node(data);
-                if (LänkadLista.head == null)
+                if (head == null)
                 {
-                    LänkadLista.head = nyNod;
+                    head = nyNod;
                     return;
                 }
                 Node lastNode = GetLastNode();
                 lastNode.next = nyNod;
             }
+            void RemoveLast()
+            {
+                Node Sista = GetLastNode();
+                Sista = null;
+            }
+            void RemoveFirst()
+            {
+                if(head.next == null)
+                {
+                    head = null;
+                }
+                else { 
+                Node first = head.next;
+                head = null;
+                head = first;
+                }
+            }
+        }
+        
+    }
 
+        public class Fukt<T>
+        {
             protected T[] listning;
             protected int swagger;
             protected int längd;
@@ -115,4 +133,3 @@ namespace Dynamisk_Lista
             }
         }
     }
-}
