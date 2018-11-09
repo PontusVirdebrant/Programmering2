@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Shooter
 {
@@ -12,13 +13,15 @@ namespace Shooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         EnemySpawner enemySpawner = new EnemySpawner();
+        enum Gamestate { Menu, Live, Pause, Loss }
+        private Gamestate gamestate;
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
         }
 
         /// <summary>
@@ -30,8 +33,8 @@ namespace Shooter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
+            gamestate = Gamestate.Menu;
             ObjectManager.AddObject(new Player());
 
         }
@@ -68,8 +71,15 @@ namespace Shooter
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            ObjectManager.Update();
-            enemySpawner.Update();
+            if(gamestate == Gamestate.Live) { 
+                ObjectManager.Update();
+                enemySpawner.Update();
+            }
+            if (gamestate == Gamestate.Menu || gamestate == Gamestate.Pause || gamestate == Gamestate.Loss)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    gamestate = Gamestate.Live;
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
