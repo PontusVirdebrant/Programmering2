@@ -80,6 +80,11 @@ namespace Shooter
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                     gamestate = Gamestate.Live;
             }
+            if (gamestate == Gamestate.Live)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.P))
+                    gamestate = Gamestate.Pause;
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);

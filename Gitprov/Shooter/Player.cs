@@ -76,7 +76,10 @@ namespace Shooter
                     Remove = true;
                     Debug.WriteLine("Spelaren förlorade");
                 }
-                Debug.WriteLine("Spelaren har " + Health + " HP kvar");
+                else
+                {
+                    Debug.WriteLine("Spelaren har " + Health + " HP kvar");
+                }
             }
         }
 

@@ -11,7 +11,7 @@ namespace Shooter
     class EnemyFollowPlayer:BaseEnemy
     {
         Player target;
-        private int Score;
+        public int Score;
         public EnemyFollowPlayer(Vector2 pos, Player player):base(pos)
         {
             target = player;
@@ -28,10 +28,10 @@ namespace Shooter
 
         public override void OnCollision(BaseObject col)
         {
-            if(col is BaseBullet)
+            if (col is BaseBullet)
             {
+                
                 Remove = true;
-                Score += 100;
                 Debug.WriteLine(Score);
             }
             if (col is Player)
