@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Shooter
     {
         protected float speed =10;
         protected Vector2 direction;
+        protected int Score = 0;
 
         public BaseBullet(Vector2 pos, Vector2 dir)
         {
@@ -31,6 +33,8 @@ namespace Shooter
             if(col is BaseEnemy)
             {
                 Remove = true;
+                Score += 100;
+                Debug.WriteLine(Score);
             }
         }
     }

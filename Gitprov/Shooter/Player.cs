@@ -73,6 +73,7 @@ namespace Shooter
                 Health--;
                 if (Health <= 0)
                 {
+
                     Remove = true;
                     Debug.WriteLine("Spelaren förlorade");
                 }
