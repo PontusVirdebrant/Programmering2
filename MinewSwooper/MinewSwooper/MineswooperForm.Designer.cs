@@ -1,6 +1,6 @@
 ﻿namespace MinewSwooper
 {
-    partial class Form1
+    partial class MineswooperForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,11 +34,14 @@
             // 
             // startKnapp
             // 
-            this.startKnapp.Location = new System.Drawing.Point(211, 12);
+            this.startKnapp.Image = global::MinewSwooper.Properties.Resources.startKnapp;
+            this.startKnapp.Location = new System.Drawing.Point(380, 12);
             this.startKnapp.Name = "startKnapp";
             this.startKnapp.Size = new System.Drawing.Size(40, 40);
+            this.startKnapp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.startKnapp.TabIndex = 0;
             this.startKnapp.TabStop = false;
+            this.startKnapp.Click += new System.EventHandler(this.StartaSpel);
             // 
             // Form1
             // 
