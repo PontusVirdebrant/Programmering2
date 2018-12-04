@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MinewSwooper.Properties;
 
 namespace MinewSwooper
 {
@@ -68,10 +69,15 @@ namespace MinewSwooper
             {
                 internal const int LENGTH = 25;
 
+                internal Point GridPosition { get; }
+
                 internal Tile(int x, int y)
                 {
                     this.Name = $"Tile_{x}_{y}";
                     this.Location = new Point(x * LENGTH, y * LENGTH);
+                    this.GridPosition = new Point(x, y);
+                    this.Size = new Size(LENGTH, LENGTH);
+                    this.Image = Resources.Tile;
                 }
             }
         }

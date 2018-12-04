@@ -82,5 +82,35 @@
   <ItemGroup>
     <None Include="Resources\startKnapp.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTile_5.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
