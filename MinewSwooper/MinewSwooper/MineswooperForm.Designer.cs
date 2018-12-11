@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tileGrid = new MinewSwooper.MineswooperForm.TileGrid();
             this.startKnapp = new System.Windows.Forms.PictureBox();
             this.flaggRäknare = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.highscoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip_Game_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.startKnapp)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -164,6 +166,12 @@
             this.menuStrip_Game_Exit.Text = "Exit";
             this.menuStrip_Game_Exit.Click += new System.EventHandler(this.MenuStrip_Game_Exit_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tag = "Tid";
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
             // MineswooperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,6 +209,7 @@
         private System.Windows.Forms.ToolStripMenuItem highscoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem menuStrip_Game_Exit;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

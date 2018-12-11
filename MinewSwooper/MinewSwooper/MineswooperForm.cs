@@ -26,6 +26,7 @@ namespace MinewSwooper
 
         private void StartaSpel(object sender, EventArgs e)
         {
+
             int x, y, minor;
             switch (this.svårighetsgrad)
             {
@@ -59,6 +60,11 @@ namespace MinewSwooper
         private void MenuStrip_Game_Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+           
         }
 
         private void MenuStrip_Game_DifficultyChanged(object sender, EventArgs e)
@@ -175,6 +181,8 @@ namespace MinewSwooper
                 }
                 this.minorGenererade = true;
             }
+
+            
 
             private void DisableTiles(bool gameLost)
             {
