@@ -19,6 +19,7 @@ namespace MinewSwooper
         {
             InitializeComponent();
             this.StartaSpel(null, null);
+            this.tileGrid.TileFlagStatusChange += this.TileFlagStatusChanged;
         }
 
         private enum Svårighetsgrad { Expert, Intermediate, Noob}
@@ -46,16 +47,44 @@ namespace MinewSwooper
             }
             this.tileGrid.LoadGrid(new Size(x, y), minor);
             this.MaximumSize = this.MinimumSize = new Size(this.tileGrid.Width + 36, this.tileGrid.Height + 98);
+            this.flaggRäknare.Text = minor.ToString();
+            this.flaggRäknare.ForeColor = Color.Black;
+        }
+
+        private void MenuStrip_Game_New_Click(object sender, EventArgs e)
+        {
+            this.StartaSpel(null, null);
+        }
+
+        private void MenuStrip_Game_Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void MenuStrip_Game_DifficultyChanged(object sender, EventArgs e)
+        {
+            this.svårighetsgrad = (Svårighetsgrad)Enum.Parse(typeof(Svårighetsgrad), (string)((ToolStripMenuItem)sender).Tag);
+            this.StartaSpel(null, null);
+            //Ändrar svårighetsgraden när den väljs i menyn.
+        }
+
+        private void TileFlagStatusChanged(object sender, TileGrid.TileFlagStatusChangedEventArgs e)
+        {
+            this.flaggRäknare.Text = e.Flaggor.ToString();
+            this.flaggRäknare.ForeColor = e.LabelColor;
         }
 
         private class TileGrid : Panel
         {
             private static readonly Random random = new Random();
+            private static readonly HashSet<Tile> gridSearchBlacklist = new HashSet<Tile>();
 
             private Size gridSize;
             private int mines;
             private int flags;
             private bool minorGenererade;
+
+            internal event EventHandler<TileFlagStatusChangedEventArgs> TileFlagStatusChange = delegate { };
 
             private Tile this[Point point] => (Tile)this.Controls[$"Tile_{point.X}_{point.Y}"];
 
@@ -69,13 +98,35 @@ namespace MinewSwooper
                         case MouseButtons.Left when !tile.Flagged:
                             if (!this.minorGenererade)
                             {
-
+                                this.GenerateMines(tile);
+                            }
+                            if (tile.Mined)
+                            {
+                                this.DisableTiles(true);
+                            }
+                            else
+                            {
+                                tile.TestAdjacentTiles();
+                                gridSearchBlacklist.Clear(); 
                             }
                             break;
                         case MouseButtons.Right when this.flags > 0:
+                            if (tile.Flagged)
+                            {
+                                tile.Flagged = false;
+                                this.flags++;
+                            }
+                            else
+                            {
+                                tile.Flagged = true;
+                                this.flags--;
+                            }
+                            TileFlagStatusChange(this, new TileFlagStatusChangedEventArgs(this.flags, this.flags < this.mines * 0.25 ? Color.Red : Color.Black));
+                            // texten som visar antalet flaggor kvar blir röd när mindre än 25% är kvar 
                             break;
                     }
                 }
+                this.CheckForWin();
             }
 
             internal void LoadGrid(Size gridSize, int mines)
@@ -111,8 +162,40 @@ namespace MinewSwooper
                 }
                 for (int i = safeTilesCount; i < usedPositions.Length; i++)
                 {
-                    Point point = new Point[i]
+                    Point point = new Point(random.Next(this.gridSize.Width), random.Next(this.gridSize.Height));
+                    if (!usedPositions.Contains(point))
+                    {
+                        this[point].Mina();
+                        usedPositions[i] = point;
+                    }
+                    else
+                    {
+                        i--;
+                    }
                 }
+                this.minorGenererade = true;
+            }
+
+            private void DisableTiles(bool gameLost)
+            {
+                foreach (Tile tile in this.Controls)
+                {
+                    tile.MouseDown -= this.Tile_MouseDown;
+                    if (gameLost)
+                    {
+                        tile.Image = !tile.Opened && tile.Mined && !tile.Flagged ? Resources.Mina : tile.Flagged && !tile.Mined ? Resources.False_Flag : tile.Image;
+                    }
+                }
+            }
+
+            private void CheckForWin()
+            {
+                if (this.flags != 0 || this.Controls.OfType<Tile>().Count(tile => tile.Opened || tile.Flagged) != this.gridSize.Width * this.gridSize.Height)
+                {
+                    return;
+                }
+                MessageBox.Show("Grattis, du klarade spelet!", "Spel klarat", MessageBoxButtons.OK);
+                this.DisableTiles(false);
             }
 
             private class Tile : PictureBox
@@ -148,6 +231,8 @@ namespace MinewSwooper
                         this.Image = value ? Resources.Flag : Resources.Tile;
                     }
                 }
+                private int AdjacentMines => this.AdjacentTiles.Count(tile => tile.Mined);
+
                 internal void SetAdjacentTiles()
                 {
                     TileGrid tileGrid = (TileGrid)this.Parent;
@@ -162,12 +247,49 @@ namespace MinewSwooper
                     }
                     this.AdjacentTiles = adjacentTiles.ToArray();
                 }
+
+                internal void TestAdjacentTiles()
+                {
+                    if (this.flagged || gridSearchBlacklist.Contains(this))
+                    {
+                        return;
+                    }
+                    gridSearchBlacklist.Add(this);
+                    if (this.AdjacentMines == 0)
+                    {
+                        foreach (Tile tile in this.AdjacentTiles)
+                        {
+                            tile.TestAdjacentTiles();
+                        }
+                    }
+                    this.Open();
+                }
+
+                internal void Mina()
+                {
+                    this.Mined = true;
+                }
+
+                private void Open()
+                {
+                    this.Opened = true;
+                    this.Image = (Image)Resources.ResourceManager.GetObject($"EmptyTile_{this.AdjacentMines}");
+                }
+            }
+
+            internal class TileFlagStatusChangedEventArgs : EventArgs
+            {
+                internal int Flaggor { get; }
+                internal Color LabelColor { get; }
+
+                internal TileFlagStatusChangedEventArgs(int flaggor, Color labelColor)
+                {
+                    this.Flaggor = flaggor;
+                    this.LabelColor = labelColor;
+                }
             }
         }
 
-        private void tileGrid_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
     }
 }
