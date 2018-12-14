@@ -13,9 +13,9 @@ namespace MinewSwooper
 {
     public partial class MineswooperForm : Form
     {
-        public bool Vinst;
+        bool Vinst = false;
         private Svårighetsgrad svårighetsgrad;
-        Timer timer = new Timer();
+        public Timer timer = new Timer();
         public MineswooperForm()
         {
             InitializeComponent();
@@ -31,6 +31,7 @@ namespace MinewSwooper
         {
             timer.Tick -= new EventHandler(ScoreTimerTick);
             Tid = 0;
+            Vinst = false;
             Initialize_Timer();
             int x, y, minor;
             switch (this.svårighetsgrad)
@@ -92,13 +93,15 @@ namespace MinewSwooper
         private void ScoreTimerTick(object sender, EventArgs e)
         {
             this.TidLabel.Text = Tid.ToString();
+            
             if(!Vinst)
             {
                 Tid++;
             }
         }
 
-        private class TileGrid : Panel
+
+        public class TileGrid : Panel
         {
             private static readonly Random random = new Random();
             private static readonly HashSet<Tile> gridSearchBlacklist = new HashSet<Tile>();
@@ -219,7 +222,8 @@ namespace MinewSwooper
                     return;
                 }
                 MessageBox.Show("Grattis, du klarade spelet!", "Spel klarat", MessageBoxButtons.OK);
-
+                // Vinst = true;
+                
                 this.DisableTiles(false);
             }
 
