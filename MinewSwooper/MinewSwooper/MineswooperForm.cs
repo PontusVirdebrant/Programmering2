@@ -13,8 +13,9 @@ namespace MinewSwooper
 {
     public partial class MineswooperForm : Form
     {
+        public bool Vinst;
         private Svårighetsgrad svårighetsgrad;
-
+        Timer timer = new Timer();
         public MineswooperForm()
         {
             InitializeComponent();
@@ -24,9 +25,13 @@ namespace MinewSwooper
 
         private enum Svårighetsgrad { Expert, Intermediate, Noob}
 
+        private int Tid { get; set; }
+
         private void StartaSpel(object sender, EventArgs e)
         {
-
+            timer.Tick -= new EventHandler(ScoreTimerTick);
+            Tid = 0;
+            Initialize_Timer();
             int x, y, minor;
             switch (this.svårighetsgrad)
             {
@@ -62,11 +67,6 @@ namespace MinewSwooper
             Application.Exit();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-           
-        }
-
         private void MenuStrip_Game_DifficultyChanged(object sender, EventArgs e)
         {
             this.svårighetsgrad = (Svårighetsgrad)Enum.Parse(typeof(Svårighetsgrad), (string)((ToolStripMenuItem)sender).Tag);
@@ -78,6 +78,24 @@ namespace MinewSwooper
         {
             this.flaggRäknare.Text = e.Flaggor.ToString();
             this.flaggRäknare.ForeColor = e.LabelColor;
+        }
+
+        private void Initialize_Timer()
+        {
+           timer.Interval = 1000;
+
+           timer.Tick += new EventHandler(ScoreTimerTick);
+
+           timer.Start();
+        }
+
+        private void ScoreTimerTick(object sender, EventArgs e)
+        {
+            this.TidLabel.Text = Tid.ToString();
+            if(!Vinst)
+            {
+                Tid++;
+            }
         }
 
         private class TileGrid : Panel
@@ -182,8 +200,6 @@ namespace MinewSwooper
                 this.minorGenererade = true;
             }
 
-            
-
             private void DisableTiles(bool gameLost)
             {
                 foreach (Tile tile in this.Controls)
@@ -203,6 +219,7 @@ namespace MinewSwooper
                     return;
                 }
                 MessageBox.Show("Grattis, du klarade spelet!", "Spel klarat", MessageBoxButtons.OK);
+
                 this.DisableTiles(false);
             }
 
@@ -298,6 +315,9 @@ namespace MinewSwooper
             }
         }
 
+        private void MineswooperForm_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
