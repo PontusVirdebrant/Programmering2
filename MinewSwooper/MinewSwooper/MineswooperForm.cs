@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MinewSwooper.Properties;
+using Microsoft.VisualBasic;
 
 namespace MinewSwooper
 {
@@ -100,12 +102,12 @@ namespace MinewSwooper
             }
         }
 
-
         public class TileGrid : Panel
         {
             private static readonly Random random = new Random();
             private static readonly HashSet<Tile> gridSearchBlacklist = new HashSet<Tile>();
 
+            private static readonly string scoreSave = Microsoft.VisualBasic.Interaction.InputBox("Skriv in ditt namn", "Highscores", "Ditt namn");
             private Size gridSize;
             private int mines;
             private int flags;
@@ -221,10 +223,19 @@ namespace MinewSwooper
                 {
                     return;
                 }
+                SaveScore();
                 MessageBox.Show("Grattis, du klarade spelet!", "Spel klarat", MessageBoxButtons.OK);
-                // Vinst = true;
-                
+
                 this.DisableTiles(false);
+            }
+
+            private void SaveScore()
+            {
+                MessageBox.Show(scoreSave);
+                BinaryWriter scoreSaver = new BinaryWriter(
+                    new FileStream("ScoreFil", FileMode.OpenOrCreate, FileAccess.Write));
+                scoreSaver.Write("tiden"); //Kommer inte åt tiden från denna delen av koden så skriver Tid som en placeholder istället.
+                scoreSaver.Close();
             }
 
             private class Tile : PictureBox
