@@ -219,9 +219,10 @@ namespace MinewSwooper
                     return;
                 }
                 MessageBox.Show("Grattis, du klarade spelet!", "Spel klarat", MessageBoxButtons.OK);
+
                 if(_HighScores.ShowDialog() == DialogResult.OK)
                 {
-                    
+
                 }
                 this.DisableTiles(false);
             }
@@ -322,6 +323,11 @@ namespace MinewSwooper
         private void MineswooperForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void HighScoresTab(object sender, EventArgs e)
+        {
+            Scores scores = new Scores();
         }
     }
 }

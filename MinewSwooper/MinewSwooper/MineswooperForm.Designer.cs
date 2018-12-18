@@ -107,19 +107,19 @@
             // 
             this.menuStrip_Game_New.Name = "menuStrip_Game_New";
             this.menuStrip_Game_New.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuStrip_Game_New.Size = new System.Drawing.Size(141, 22);
+            this.menuStrip_Game_New.Size = new System.Drawing.Size(180, 22);
             this.menuStrip_Game_New.Text = "New";
             this.menuStrip_Game_New.Click += new System.EventHandler(this.MenuStrip_Game_New_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // menuStrip_Game_Beginner
             // 
             this.menuStrip_Game_Beginner.Name = "menuStrip_Game_Beginner";
-            this.menuStrip_Game_Beginner.Size = new System.Drawing.Size(141, 22);
+            this.menuStrip_Game_Beginner.Size = new System.Drawing.Size(180, 22);
             this.menuStrip_Game_Beginner.Tag = "Noob";
             this.menuStrip_Game_Beginner.Text = "Beginner";
             this.menuStrip_Game_Beginner.Click += new System.EventHandler(this.MenuStrip_Game_DifficultyChanged);
@@ -127,7 +127,7 @@
             // menuStrip_Game_Intermediate
             // 
             this.menuStrip_Game_Intermediate.Name = "menuStrip_Game_Intermediate";
-            this.menuStrip_Game_Intermediate.Size = new System.Drawing.Size(141, 22);
+            this.menuStrip_Game_Intermediate.Size = new System.Drawing.Size(180, 22);
             this.menuStrip_Game_Intermediate.Tag = "Intermediate";
             this.menuStrip_Game_Intermediate.Text = "Intermediate";
             this.menuStrip_Game_Intermediate.Click += new System.EventHandler(this.MenuStrip_Game_DifficultyChanged);
@@ -135,7 +135,7 @@
             // menuStrip_Game_Expert
             // 
             this.menuStrip_Game_Expert.Name = "menuStrip_Game_Expert";
-            this.menuStrip_Game_Expert.Size = new System.Drawing.Size(141, 22);
+            this.menuStrip_Game_Expert.Size = new System.Drawing.Size(180, 22);
             this.menuStrip_Game_Expert.Tag = "Expert";
             this.menuStrip_Game_Expert.Text = "Expert";
             this.menuStrip_Game_Expert.Click += new System.EventHandler(this.MenuStrip_Game_DifficultyChanged);
@@ -143,24 +143,25 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // highscoresToolStripMenuItem
             // 
             this.highscoresToolStripMenuItem.Name = "highscoresToolStripMenuItem";
-            this.highscoresToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.highscoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.highscoresToolStripMenuItem.Text = "Highscores";
+            this.highscoresToolStripMenuItem.Click += new System.EventHandler(this.HighScoresTab);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // menuStrip_Game_Exit
             // 
             this.menuStrip_Game_Exit.Name = "menuStrip_Game_Exit";
             this.menuStrip_Game_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.menuStrip_Game_Exit.Size = new System.Drawing.Size(141, 22);
+            this.menuStrip_Game_Exit.Size = new System.Drawing.Size(180, 22);
             this.menuStrip_Game_Exit.Tag = "Exit";
             this.menuStrip_Game_Exit.Text = "Exit";
             this.menuStrip_Game_Exit.Click += new System.EventHandler(this.MenuStrip_Game_Exit_Click);
