@@ -15,7 +15,6 @@ namespace MinewSwooper
 {
     public partial class MineswooperForm : Form
     {
-        bool Vinst = false;
         private Svårighetsgrad svårighetsgrad;
         public Timer timer = new Timer();
         public MineswooperForm()
@@ -33,7 +32,6 @@ namespace MinewSwooper
         {
             timer.Tick -= new EventHandler(ScoreTimerTick);
             Tid = 0;
-            Vinst = false;
             Initialize_Timer();
             int x, y, minor;
             switch (this.svårighetsgrad)
@@ -95,19 +93,16 @@ namespace MinewSwooper
         private void ScoreTimerTick(object sender, EventArgs e)
         {
             this.TidLabel.Text = Tid.ToString();
-            
-            if(!Vinst)
-            {
-                Tid++;
-            }
+            Tid++;
         }
 
         public class TileGrid : Panel
         {
             private static readonly Random random = new Random();
             private static readonly HashSet<Tile> gridSearchBlacklist = new HashSet<Tile>();
+            private HighScores _HighScores = new HighScores();
 
-            private static readonly string scoreSave = Microsoft.VisualBasic.Interaction.InputBox("Skriv in ditt namn", "Highscores", "Ditt namn");
+            // private static readonly string scoreSave = Microsoft.VisualBasic.Interaction.InputBox("Skriv in ditt namn", "Highscores", "Ditt namn");
             private Size gridSize;
             private int mines;
             private int flags;
@@ -223,20 +218,14 @@ namespace MinewSwooper
                 {
                     return;
                 }
-                SaveScore();
                 MessageBox.Show("Grattis, du klarade spelet!", "Spel klarat", MessageBoxButtons.OK);
-
+                if(_HighScores.ShowDialog() == DialogResult.OK)
+                {
+                    
+                }
                 this.DisableTiles(false);
             }
 
-            private void SaveScore()
-            {
-                MessageBox.Show(scoreSave);
-                BinaryWriter scoreSaver = new BinaryWriter(
-                    new FileStream("ScoreFil", FileMode.OpenOrCreate, FileAccess.Write));
-                scoreSaver.Write("tiden"); //Kommer inte åt tiden från denna delen av koden så skriver Tid som en placeholder istället.
-                scoreSaver.Close();
-            }
 
             private class Tile : PictureBox
             {
